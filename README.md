@@ -7,5 +7,5 @@
 ## CSP
 - Turtle Games
 - Data Analytics
--Intro the Websites
+- Intro the Websites
 - Odds & Ends
