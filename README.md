@@ -2,8 +2,8 @@
 ## CSE
  - Black based programming 
  - Python Intoduciton 
- - - Combo Menu
- - - Hangman
+   - Combo Menu
+   - Hangman
 ## CSP
 - Turtle Games
 - Data Analytics
