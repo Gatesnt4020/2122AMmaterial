@@ -1,0 +1,31 @@
+
+todo:
+get some ideas for weapons and think how well they'll be added to player stats
+think of how a key would work for a door 
+for monster leveling do modulo 1 since its always zero      (NOT SURE WHAT I MEANT)
+with the progress function make the hardness go up or make another function for it
+recheck the progress function       (HOME)
+think of something for the use(equiping) might do a function that just checks when the player types something but remember that you'll need to unequip stuff so it doesn't stack on top of each other
+get the use to work         (HOME)
+make a list with the monster and then grab the list and put the monster in another list and choose a random number to figure out which mob it would be
+storyline after all of this is done
+let the player know that there is a limit on the invt in the tutorial           (HOME)
+if you give a player an item make sure that they wouldnt be able to have more what could already be in there inventory
+in the grab() see if the player want to remove something from there inventory if its too full and think if they say no what will happen like were would they be
+make the tutorial and random stuff be navi(fairy from zelda)
+maybe change torch to candle
+
+done:
+get grab to work
+do the leveling system so everything does it by it(i make it multiply the stats by a set amount to increase them (multiple user by .5 and mobs by some other smaller number but make it become bigger later)(first 10 levels times 1.5 and after that times 1.25))
+try and use a different thing for input instead of ui and make it a global var and if it equals potions then make potions work or something use True and False
+some reason hp has only been changing with the print stuff but with health potions it thinking that hp is still at max
+add health potions or something so betas can play longer
+add something so you can see how much exp is needed before the next level
+if it's not in the list it'll crash the invt so make it so if they try to remove whats in there it will just ask em again
+limit for 'backpack'
+consum is to check the invt and if it is in the consum then it will remove after use
+
+
+probably done:
+think of how you would make it were players cant grab what ever maybe by making it limited with while statments but maybe something else like comparing list
