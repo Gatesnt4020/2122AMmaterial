@@ -21,8 +21,8 @@ class UnitConverter:
     #f to k 
     @staticmethod
     def fahrenheitToKelvin(f):
-        c =UnitConverer.fahrenheitToCelsius(f)
-        k =UnitConverer.celsiusToKelvin(c)
+        c =UnitConverter.fahrenheitToCelsius(f)
+        k =UnitConverter.celsiusToKelvin(c)
         return k
 
     #k to c
@@ -34,6 +34,6 @@ class UnitConverter:
     #k to f 
     @staticmethod
     def kelvinToFahrenheit(k): 
-        c =UnitConverer.kelvinToCelsius(k)
-        f=UnitConverer.celsiusToFahrenheit(c)
+        c =UnitConverter.kelvinToCelsius(k)
+        f=UnitConverter.celsiusToFahrenheit(c)
         return f

@@ -12,11 +12,11 @@ convert k to c = 5
 convert k to f = 6
 '''
 
-
-ui = input("What would ou like to convert? ")
+print(userInterface)
+ui = input("What would you like to convert? ")
 while(ui!="q"):
     if ui == "1":
-        print(UnitConverter. fahrenheittoCelsius(int(input("Fah: "))))
+        print(UnitConverter.fahrenheitToCelsius(int(input("Fah: "))))
     elif ui =="2":
         print(UnitConverter.fahrenheitToKelvin(int(input("Fah: "))))
     elif ui =="3":
