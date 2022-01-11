@@ -1,0 +1,40 @@
+'''
+#loops...
+# for loop and while loop!!!!
+#loop through a string and print out each letter
+s = "elephant"
+#for each loop
+for letter in s:
+    print(letter)
+
+#traditional for loop
+for i in range(len(s)):
+    print(s[i])
+
+print()
+sL=list("elephant")
+print(sL)
+#find the index of p
+for i in range(len(sL)):
+    #if letter we are on is equal
+    if sL[i] == "t":
+        #print the index
+        sL[i]="y"
+
+def listToString(listy):
+    out=""
+    for eachLetter in listy:
+        out+=eachLetter
+    print(out)
+        
+listToString(sL)
+'''
+s = "seahorse"
+vowels="aeiouy"
+#print th indexs of the vowels - try using the while loops
+i=0
+#loop while i is less than the length of s 
+while i<len(s):
+    if s[i] in vowels:
+        print(i)
+    i+=1

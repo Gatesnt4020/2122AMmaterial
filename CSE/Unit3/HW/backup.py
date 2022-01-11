@@ -1,9 +1,9 @@
 import random,string
 
-upperCase = string.ascii_uppercase
-lowerCase = string.ascii_lowercase
-numbers = string.digits
-symbols = string.punctuation
+upperCase = list(string.ascii_uppercase)
+lowerCase = list(string.ascii_lowercase)
+numbers = list(string.digits)
+symbols = list(string.punctuation)
 
 def generate(numberUpper, numberLower, num, sym):
     password = ""
