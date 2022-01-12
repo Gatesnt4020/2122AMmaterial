@@ -14,26 +14,26 @@ def printBoard(board):
 
 def catGame(board):
     #check every spot to see if there is somthing
-    for row in rane(len(board)):    #range(len(sampleBoard))->[0,1]
+    for row in range(len(board)):    #range(len(sampleBoard))->[0,1]
         for colums in range(len(board[row])):
             if (board[row][colums]) == " ":
                 return False
     print("CAT GAME!")
     return True     #return stop the function and give a vaule back
 
-def checkForWinners(board):
+def checkForWinner(board):
     #check horizontallly
     for r in range(len(board)):
-        if (board[r][0] == board[r][1] and board[r][1] == board[r][2] and board[r][0]  != " ":
+        if (board[r][0] == board[r][1] and board[r][1] == board[r][2] and board[r][0]  != " "):
             print("Winner winner turkey dinner!")
             printBoard(board)
             return True
     #check vertically
         for c in range(len(board)):
-        if (board[c][0] == board[c][1] and board[c][1] == board[c][2] and board[c][0]  != " ":
-            print("Winner winner turkey dinner!")
-            printBoard(board)
-            return True
+            if (board[c][0] == board[c][1] and board[c][1] == board[c][2] and board[c][0]  != " "):
+                print("Winner winner turkey dinner!")
+                printBoard(board)
+                return True
     #switching our symbols
 
 def chooseSpot(r,c,symbol,board):
