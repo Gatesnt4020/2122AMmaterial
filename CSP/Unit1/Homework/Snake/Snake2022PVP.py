@@ -12,10 +12,17 @@ wn.bgcolor("orange")
 wn.setup(width=600,height=600)          #gice a default screen size
 
 
-head = t.Turtle(shape="square")
+head = t.Turtle(shape="square")     #left player
 head.speed(0)
 head.penup()
+head.goto(-40,0)
 head.direction="stop"
+
+head1 = t.Turtle(shape="square")        #right player
+head1.speed(0)
+head1.penup()
+head1.goto(40,0)
+head1.direction="stop"
 
 #create the food
 food = t.Turtle()
@@ -43,23 +50,57 @@ def right():
     if head.direction != "left":
         head.direction="right"
         
+def up1():
+    if head.direction != "down":
+        head.direction="up"
+    
+def down1():
+    if head.direction != "up":
+        head.direction="down"
+    
+def left1():
+    if head.direction != "right":
+        head.direction="left"
+    
+def right1():
+    if head.direction != "left":
+        head.direction="right"
+        
 def move():
     #depending on the direction, the coordinates change
-    if head.direction == "up":
+    if head1.direction == "up":
+        y = head1.ycor()     #get the y coor
+        head1.sety(y+20)     #set the new y coordinate
+      
+    elif head1.direction == "down":
+        y = head1.ycor()     #get the y coor
+        head1.sety(y-20)     #set the new y coordinate
+        
+    elif head1.direction == "right":
+        x = head1.xcor()     #get the x coor
+        head1.setx(x+20)     #set the new x coordinate
+    
+    elif head1.direction == "left":
+        x = head1.xcor()     #get the x coor
+        head1.setx(x-20)     #set the new x coordinate
+        
+def move1():
+    #depending on the direction, the coordinates change
+    if head1.direction == "up":
         y = head.ycor()     #get the y coor
         head.sety(y+20)     #set the new y coordinate
       
-    elif head.direction == "down":
-        y = head.ycor()     #get the y coor
-        head.sety(y-20)     #set the new y coordinate
+    elif head1.direction == "down":
+        y = head1.ycor()     #get the y coor
+        head1.sety(y-20)     #set the new y coordinate
         
-    elif head.direction == "right":
-        x = head.xcor()     #get the x coor
-        head.setx(x+20)     #set the new x coordinate
+    elif head1.direction == "right":
+        x = head1.xcor()     #get the x coor
+        head1.setx(x+20)     #set the new x coordinate
     
-    elif head.direction == "left":
-        x = head.xcor()     #get the x coor
-        head.setx(x-20)     #set the new x coordinate
+    elif head1.direction == "left":
+        x = head1.xcor()     #get the x coor
+        head1.setx(x-20)     #set the new x coordinate
         
 def hideTheBodyParts():     #gameover    #Border Collision?
     global bodyParts,color
@@ -124,7 +165,10 @@ wn.onkeypress(up,"w")
 wn.onkeypress(right,"d")
 wn.onkeypress(left,"a")
 wn.onkeypress(down,"s")
-
+wn.onkeypress(up1,"Up")
+wn.onkeypress(right1,"Right")
+wn.onkeypress(left1,"Left")
+wn.onkeypress(down1,"Down")
 
 #main game loop
 while True:
@@ -135,15 +179,16 @@ while True:
         hideTheBodyParts()
         
     #Food Collision?
-    eatingFood()
+    # eatingFood()
     
     #move the snake body
-    bodyFollow()
+    # bodyFollow()
     
-    move()  #Move the head
+    # move()  #Move the head
+    # move1()
     
     #Did we hit ourselves?
-    bodyCollison()
+    # bodyCollison()
     
     
-    time.sleep(delay)
+    #time.sleep(delay)
