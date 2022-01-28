@@ -6,7 +6,6 @@ import random
 delay = 0.1
 color=0
 bodyParts=[]
-speed=15
 #create turtle objects
 wn = t.Screen()
 wn.bgcolor("orange")
@@ -48,22 +47,22 @@ def move():
     #depending on the direction, the coordinates change
     if head.direction == "up":
         y = head.ycor()     #get the y coor
-        head.sety(y+speed)     #set the new y coordinate
+        head.sety(y+20)     #set the new y coordinate
       
     elif head.direction == "down":
         y = head.ycor()     #get the y coor
-        head.sety(y-speed)     #set the new y coordinate
+        head.sety(y-20)     #set the new y coordinate
         
     elif head.direction == "right":
         x = head.xcor()     #get the x coor
-        head.setx(x+speed)     #set the new x coordinate
+        head.setx(x+20)     #set the new x coordinate
     
     elif head.direction == "left":
         x = head.xcor()     #get the x coor
-        head.setx(x-speed)     #set the new x coordinate
+        head.setx(x-20)     #set the new x coordinate
         
 def hideTheBodyParts():     #gameover    #Border Collision?
-    global bodyParts,color,speed
+    global bodyParts,color
     
     time.sleep(1)           #wait a second
     #move the head to 0,0
@@ -75,10 +74,9 @@ def hideTheBodyParts():     #gameover    #Border Collision?
         parts.goto(1000,1000)
     bodyParts=[]
     color=0
-    speed=15
     
 def eatingFood():
-    global color,speed
+    global color
     
     #Food Collision?
     #if head or food's distance <20
@@ -100,7 +98,6 @@ def eatingFood():
         bodyParts.append(part)
         color+=1
         color=color%2
-        speed+=3
         
 def bodyFollow():
     #move the snake

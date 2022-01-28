@@ -147,7 +147,7 @@ def move():    #reseting the ball's x,y
 
 if darkMode==True:
     wn.bgcolor("black")
-    ball.colir("white")
+    ball.color("white")
     border.color("white")
 
 #main game loop and events
