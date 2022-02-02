@@ -1,15 +1,22 @@
 #import
+from re import L
 import turtle as t
 import time
 import random
 #game configuration
 delay = 0.1
-color=0
+speed=20
 bodyParts=[]
+isPause=False
+isHardMode=False
+asked=0
 #create turtle objects
 wn = t.Screen()
+t.title("Snake")
 wn.bgcolor("orange")
 wn.setup(width=600,height=600)          #gice a default screen size
+t.colormode(255)
+
 
 
 head = t.Turtle(shape="square")
@@ -28,41 +35,57 @@ food.goto(100,100)
 
 #functions
 def up():
-    if head.direction != "down":
-        head.direction="up"
+    global isPause
+    if isPause ==False:
+        if head.direction != "down":
+            head.direction="up"
     
 def down():
-    if head.direction != "up":
-        head.direction="down"
+    global isPause
+    if isPause ==False:
+        if head.direction != "up":
+            head.direction="down"
     
 def left():
-    if head.direction != "right":
-        head.direction="left"
+    global isPause
+    if isPause ==False:
+        if head.direction != "right":
+            head.direction="left"
     
 def right():
-    if head.direction != "left":
-        head.direction="right"
+    global isPause
+    if isPause ==False:
+        if head.direction != "left":
+            head.direction="right"
+        
+def pause():
+    global isPause
+    if isPause == False:
+        isPause=True
+    else:
+        isPause=False
         
 def move():
+    
     #depending on the direction, the coordinates change
     if head.direction == "up":
         y = head.ycor()     #get the y coor
-        head.sety(y+20)     #set the new y coordinate
-      
+        head.sety(y+speed)     #set the new y coordinate
+    
     elif head.direction == "down":
         y = head.ycor()     #get the y coor
-        head.sety(y-20)     #set the new y coordinate
+        head.sety(y-speed)     #set the new y coordinate
         
     elif head.direction == "right":
         x = head.xcor()     #get the x coor
-        head.setx(x+20)     #set the new x coordinate
+        head.setx(x+speed)     #set the new x coordinate
     
     elif head.direction == "left":
         x = head.xcor()     #get the x coor
-        head.setx(x-20)     #set the new x coordinate
+        head.setx(x-speed)     #set the new x coordinate
         
 def hideTheBodyParts():     #gameover    #Border Collision?
-    global bodyParts,color
+    global bodyParts,delay,eaten,speed
     
     time.sleep(1)           #wait a second
     #move the head to 0,0
@@ -73,31 +96,30 @@ def hideTheBodyParts():     #gameover    #Border Collision?
     for parts in bodyParts:
         parts.goto(1000,1000)
     bodyParts=[]
-    color=0
+    delay = 0.1
+    eaten=0
+    speed=20
     
 def eatingFood():
-    global color
+    global speed
     
     #Food Collision?
     #if head or food's distance <20
-    if head.distance(food) < 20:
+    if head.distance(food) < speed:
         #move the food
         #randint(-SCREENWIDTH-SNAKESIZE)
-        x=random.randint(-290,290)
-        y=random.randint(-290,290)
+        x=random.randint(-290+speed,290-speed)
+        y=random.randint(-290+speed,290-speed)
+        r,g,b=random.randint(1,255),random.randint(1,255),random.randint(1,255)
         food.goto(x,y)
         #add a body part
         part = t.Turtle()
         part.speed(0)
         part.shape("square")
-        if color ==0:
-            part.color("yellow")
-        else:
-            part.color("black")
+        part.color((r,g,b))
         part.penup()
         bodyParts.append(part)
-        color+=1
-        color=color%2
+        speed+=2
         
 def bodyFollow():
     #move the snake
@@ -118,32 +140,54 @@ def bodyCollison():
         if part.distance(head) < 10:
             hideTheBodyParts()
 
+def hardMode():
+    global isHardMode,asked
+    if asked == 0:
+        ui=wn.textinput("Game difficulty","Hard mode(1) or normal(2)")
+        while ui != "1" and ui != "2":
+            ui=wn.textinput("Game difficulty","Hard mode(1) or normal(2)")
+        if ui == "1":
+            isHardMode=True
+        asked+=1
+    if isHardMode:
+        time.sleep(2)
+        x=random.randint(-290+speed,290-speed)
+        y=random.randint(-290+speed,290-speed)
+        food.goto(x,y)
+        
+
+wn.textinput("Your movement","your keys are wasd w is up a is left s is down d is right and p is to pause the game")
+hardMode()
+
+
+
 #events or running code
 wn.listen()
 wn.onkeypress(up,"w")
 wn.onkeypress(right,"d")
 wn.onkeypress(left,"a")
 wn.onkeypress(down,"s")
+wn.onkeypress(pause,"p")
 
 
 #main game loop
 while True:
     wn.update()     #updates or refreshes the screen
-    
-    #Border Collision?
-    if head.xcor()>=290 or head.xcor()<=-290 or head.ycor()>=290 or head.ycor()<=-290:
-        hideTheBodyParts()
+    if not isPause:
+        #Border Collision?
+        if head.xcor()>=290 or head.xcor()<=-290 or head.ycor()>=290 or head.ycor()<=-290:
+            hideTheBodyParts()
+            
+        #Food Collision?
+        eatingFood()
+        hardMode()
+        #move the snake body
+        bodyFollow()
         
-    #Food Collision?
-    eatingFood()
-    
-    #move the snake body
-    bodyFollow()
-    
-    move()  #Move the head
-    
-    #Did we hit ourselves?
-    bodyCollison()
+        move()  #Move the head
+        
+        #Did we hit ourselves?wawdawdawd;wpwaadwadawdwadwad
+        bodyCollison()
     
     
     time.sleep(delay)
