@@ -39,12 +39,7 @@ function love.load()
     player1 = Paddle(10,30,5,20)
     player2 = Paddle(VIRTUAL_WIDTH-10, VIRTUAL_HEIGHT-30, 5, 20)
 
-    ballx = Ball(VIRTUAL_WIDTH/2-2)
-    bally = Ball(VIRTUAL_HEIGHT/2-2)
-
-    --determining a radnom dx and dy to move the ball
-    ballDx = math.random(2) == 1 and 100 or -100
-    ballDy = math.random(50,-50)
+    ball = Ball(VIRTUAL_WIDTH/2-2,VIRTUAL_HEIGHT/2-2,4,4)
 
     --this var will help determine what is going on in the game
     --in the beginning, menu, main game, high score, etc
@@ -80,7 +75,7 @@ function love.update(dt)
     --ball movement
     if gameState == 'play' then 
         --scale the velocity by dt so movement is framerate-independent
-        Ball.update(dt)
+        ball:update(dt)
     end
     player1:update(dt)
     player2:update(dt)
@@ -96,12 +91,7 @@ function love.keypressed(key)
             gameState='play'
         else
             gameState='start'
-            ballx = VIRTUAL_WIDTH/2-2
-            bally = VIRTUAL_HEIGHT/2-2
-            --and/or pattern here is Lua's way of accomplishing a ternary operation
-            --very common in other programming languages like C
-            ballDx = math.random(2) == 1 and 100 or -100
-            ballDy = math.random(50,-50)
+            ball:reset()
         end
     end
 end
@@ -133,7 +123,7 @@ function love.draw()
     player2:render()
     
     -- render ball (center)
-    Ball:render()
+    ball:render()
     
     
 
