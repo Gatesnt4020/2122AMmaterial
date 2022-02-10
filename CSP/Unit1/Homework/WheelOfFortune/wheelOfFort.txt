@@ -1,0 +1,2 @@
+Christian - classes, wheel, checking conditionals
+Micah - game over, ui for spelling, name, and (if incorporated) spin strength
