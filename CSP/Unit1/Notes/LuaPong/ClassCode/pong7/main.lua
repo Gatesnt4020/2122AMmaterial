@@ -53,6 +53,35 @@ end
 --this f(x) is ran every frame, pass in dt.
 --dt is delta time or change in seconds since the last frame
 function love.update(dt)
+
+    --ball movement
+    if gameState == 'play' then 
+        --check for collision, if there is collision move the ball back
+        if ball:collides(player1) then 
+            ball.Dx = -ball.Dx * 1.03
+            ball.x = player1.x + 5
+            --velocity going in the same direction, but a litle random
+            if ball.Dy<0 then
+                ball.Dy = -math.random(10,150)
+            else
+                ball.Dy = math.random(10,150)
+            end
+        end
+        if ball:collides(player2) then 
+            ball.Dx = -ball.Dx * 1.03
+            ball.x = player2.x - 5
+            --velocity going in the same direction, but a litle random
+            if ball.Dy<0 then
+                ball.Dy = -math.random(10,150)
+            else
+                ball.Dy = math.random(10,150)
+            end
+        end
+
+
+        ball:update(dt)
+    end
+
     --player 1 movement
     if love.keyboard.isDown('w') then
         player1.dy = -PADDLE_SPEED
@@ -71,10 +100,6 @@ function love.update(dt)
         player2.dy = 0
     end
 
-    --ball movement
-    if gameState == 'play' then 
-        ball:update(dt)
-    end
     player1:update(dt)
     player2:update(dt)
 
