@@ -38,6 +38,7 @@ function love.load()
     player1Score=0
     player2Score=0
 
+    servingPlayer = 1
 
     player1 = Paddle(10,30,5,20)
     player2 = Paddle(VIRTUAL_WIDTH-10, VIRTUAL_HEIGHT-30, 5, 20)
@@ -54,8 +55,19 @@ end
 --dt is delta time or change in seconds since the last frame
 function love.update(dt)
 
+    --ball movement 
+    if gameState =='serve' then 
+        --set the dy and dx of the ball based on the srver
+        ball.dy = math.random(-50,50)
+        if servingPlayer ==1 then 
+            ball.dx = math.random(140,200)
+        else
+            ball.dx = -math.random(140,200)
+        end
+    
+
     --ball movement
-    if gameState == 'play' then 
+    elseif gameState == 'play' then 
         --check for collision, if there is collision move the ball back
         if ball:collide(player1) then 
             ball.dx = -ball.dx * 1.03
@@ -125,9 +137,9 @@ function love.keypressed(key)
         love.event.quit()   --this will close the window
     elseif key == 'enter' or key == 'return' then
         if gameState == 'start' then 
+            gameState='serve'
+        elseif gameState == 'serve' then 
             gameState='play'
-        else
-            gameState='start'
             ball:reset()
         end
     end
@@ -147,8 +159,12 @@ function love.draw()
 
     if gameState == 'start' then
         love.graphics.printf('Hello Start State!',0,20,VIRTUAL_WIDTH,'center')
-    else
-        love.graphics.printf('Hello Play State!',0,20,VIRTUAL_WIDTH,'center')
+        love.graphics.printf('Press Enter to Begin!',0,30,VIRTUAL_WIDTH,'center')
+    elseif gameState == 'play' then
+        -- no UI message to display
+    elseif gameState == 'serve' then
+        love.graphics.printf('Hello Serve State!',0,20,VIRTUAL_WIDTH,'center')
+        love.graphics.printf('Press Enter to Begin!',0,30,VIRTUAL_WIDTH,'center')
     end
 
     love.graphics.setFont(scoreFont)
