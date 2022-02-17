@@ -31,14 +31,3 @@ function Ball:collide(pad)
    end
    return true
 end
-function Ball:bounce()
-    if self.y < 0 then
-        self.y = self.y + 5
-        self.dy = -self.dy
-        sounds['wall_hit']:play()
-    elseif self.y > VIRTUAL_HEIGHT then
-        self.y = self.y - 5
-        self.dy = -self.dy
-        sounds['wall_hit']:play()
-    end
-end

@@ -239,8 +239,7 @@ wn.onkeypress(right1,"Right")
 wn.onkeypress(left1,"Left")
 wn.onkeypress(down1,"Down")
 wn.onkeypress(pause,"p")
-
-wn.textinput("your keys are wasd for the left player w is up a is left s is down d is right and for the right player the arrow keys plus p is to pause the game")
+#wn.textinput("your keys are wasd for the left player w is up a is left s is down d is right and for the right player the arrow keys plus p is to pause the game")
 
 
 #main game loop
