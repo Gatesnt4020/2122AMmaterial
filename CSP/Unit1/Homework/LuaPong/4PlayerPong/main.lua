@@ -83,58 +83,72 @@ function love.update(dt)
         --set the dy and dx of the ball based on the srver
         ball.dy = math.random(-50,50)
         if servingPlayer ==1 then 
+            ball.dx = -(math.random(140,200))
+        elseif servingPlayer==2 then 
             ball.dx = math.random(140,200)
+        elseif servingPlayer ==3 then
+            ball.dx=0
+            ball.dy=0
         else
-            ball.dx = -math.random(140,200)
+            ball.dy = math.random(250,300)
+            ball.dx=-math.random(-300,300)
         end
     
 
     --ball movement
     elseif gameState == 'play' then 
         --check for collision, if there is collision move the ball back
-        if ball:collide(player1) then 
-            ball.dx = -ball.dx * 1.03
-            ball.x = player1.x + 5
-            --velocity going in the same direction, but a litle random
-            if ball.dy<0 then
-                ball.dy = -math.random(10,150)
-            else
-                ball.dy = math.random(10,150)
+        if player1Score>0 then
+            if ball:collide(player1) then 
+                ball.dx = -ball.dx * 1.03
+                ball.x = player1.x + 5
+                --velocity going in the same direction, but a litle random
+                if ball.dy<0 then
+                    ball.dy = -math.random(10,150)
+                else
+                    ball.dy = math.random(10,150)
+                end
+                sounds['paddle_hit']:play()
             end
-            sounds['paddle_hit']:play()
         end
-        if ball:collide(player2) then 
-            ball.dx = -ball.dx * 1.03
-            ball.x = player2.x - 5
-            --velocity going in the same direction, but a litle random
-            if ball.dy<0 then
-                ball.dy = -math.random(10,150)
-            else
-                ball.dy = math.random(10,150)
+        if player2Score>0 then
+            if ball:collide(player2) then 
+                ball.dx = -ball.dx * 1.03
+                ball.x = player2.x - 5
+                --velocity going in the same direction, but a litle random
+                if ball.dy<0 then
+                    ball.dy = -math.random(10,150)
+                else
+                    ball.dy = math.random(10,150)
+                end
+                sounds['paddle_hit']:play()
             end
-            sounds['paddle_hit']:play()
         end
-        if ball:collide(player3) then 
-            ball.dy = -ball.dy * 1.03
-            ball.y = player3.y + 5
-            --velocity going in the same direction, but a litle random
-            if ball.dx<0 then
-                ball.dx = -math.random(10,150)
-            else
-                ball.dx = math.random(10,150)
+        if player3Score>0 then
+            if ball:collide(player3) then 
+                ball.dy = -ball.dy * 1.03
+                ball.y = player3.y + 5
+                --velocity going in the same direction, but a litle random
+                if ball.dx<0 then
+                    ball.dx = -math.random(10,150)
+                else
+                    ball.dx = math.random(10,150)
+                end
+                sounds['paddle_hit']:play()
             end
-            sounds['paddle_hit']:play()
         end
-        if ball:collide(player4) then 
-            ball.dy = -ball.dy * 1.03
-            ball.y = player4.y - 5
-            --velocity going in the same direction, but a litle random
-            if ball.dx<0 then
-                ball.dx = -math.random(10,150)
-            else
-                ball.dx = math.random(10,150)
+        if player4Score>0 then
+            if ball:collide(player4) then 
+                ball.dy = -ball.dy * 1.03
+                ball.y = player4.y - 5
+                --velocity going in the same direction, but a litle random
+                if ball.dx<0 then
+                    ball.dx = -math.random(10,150)
+                else
+                    ball.dx = math.random(10,150)
+                end
+                sounds['paddle_hit']:play()
             end
-            sounds['paddle_hit']:play()
         end
         if player3Score == 0 then 
             if ball.y <= 0 then
@@ -181,14 +195,14 @@ function love.update(dt)
             gameState = 'serve'
         end
         if ball.y<0 then
-            servingPlayer = 1
+            servingPlayer = 4
             player3Score = player3Score-1
             sounds['score']:play()
             ball:reset()
             gameState = 'serve'
         end
         if ball.y>VIRTUAL_HEIGHT then
-            servingPlayer = 1
+            servingPlayer = 3
             player4Score = player4Score-1
             sounds['score']:play()
             ball:reset()
@@ -196,16 +210,16 @@ function love.update(dt)
         end
 
         if player1Score == player2Score and player2Score == player3Score and player3Score == 0 then 
-            winningPlayer = 4
+            winningPlayer = "grey"
             gameState = 'done'
         elseif player1Score == player2Score and player2Score == player4Score and player4Score == 0 then 
-            winningPlayer = 3
+            winningPlayer = "blue"
             gameState = 'done'
         elseif player1Score == player4Score and player4Score == player3Score and player3Score == 0 then 
-            winningPlayer = 2
+            winningPlayer = "green"
             gameState = 'done'
         elseif player4Score == player2Score and player2Score == player3Score and player3Score == 0 then 
-            winningPlayer = 1
+            winningPlayer = "red"
             gameState = 'done'
         end
 
@@ -297,24 +311,50 @@ function love.draw()
     elseif gameState == 'serve' then
         love.graphics.printf('Hello Serve State!',0,20,VIRTUAL_WIDTH,'center')
         love.graphics.printf('Press Enter to Begin!',0,30,VIRTUAL_WIDTH,'center')
+        love.graphics.printf('Player ' .. tostring(servingPlayer) .. ' serving!',0,150,VIRTUAL_WIDTH,'center')
     elseif gameState =='done' then
         love.graphics.setFont(scoreFont)
-        love.graphics.printf('Player' .. tostring(winningPlayer) .. ' wins!',0,150,VIRTUAL_WIDTH,'center')
+        love.graphics.printf('Player ' .. tostring(winningPlayer) .. ' wins!',0,150,VIRTUAL_WIDTH,'center')
         love.graphics.setFont(smallFont)
         love.graphics.printf('Press Enter to Begin!',0,30,VIRTUAL_WIDTH,'center')
     end
 
     love.graphics.setFont(scoreFont)
-    love.graphics.print(tostring(player1Score),VIRTUAL_WIDTH/7,VIRTUAL_HEIGHT/3)
-    love.graphics.print(tostring(player2Score),VIRTUAL_WIDTH-40,VIRTUAL_HEIGHT/3)
-    love.graphics.print(tostring(player3Score),VIRTUAL_WIDTH/2,VIRTUAL_HEIGHT/8)
-    love.graphics.print(tostring(player4Score),VIRTUAL_WIDTH/2,VIRTUAL_HEIGHT-60)
+    if player1Score>0 then
+        love.graphics.setColor(255,0,0)
+        love.graphics.print(tostring(player1Score),VIRTUAL_WIDTH/7,VIRTUAL_HEIGHT/3)
+    end
+    if player2Score>0 then
+        love.graphics.setColor(0,255,0)
+        love.graphics.print(tostring(player2Score),VIRTUAL_WIDTH-40,VIRTUAL_HEIGHT/3)
+    end
+    if player3Score>0 then
+        love.graphics.setColor(0,0,255)
+        love.graphics.print(tostring(player3Score),VIRTUAL_WIDTH/2,VIRTUAL_HEIGHT/8)
+    end
+    if player4Score>0 then
+        love.graphics.setColor(125,125,125)
+        love.graphics.print(tostring(player4Score),VIRTUAL_WIDTH/2,VIRTUAL_HEIGHT-60)
+    end
 
     -- Draw the paddles and the ball
-    player1:render()
-    player2:render()
-    player3:render()
-    player4:render()
+    if player1Score>0 then
+        love.graphics.setColor(255,0,0)
+        player1:render()
+    end
+    if player2Score>0 then
+        love.graphics.setColor(0,255,0)
+        player2:render()
+    end
+    if player3Score>0 then
+        love.graphics.setColor(0,0,255)
+        player3:render()
+    end
+    if player4Score>0 then
+        love.graphics.setColor(125,125,125)
+        player4:render()
+    end
+    love.graphics.setColor(255,255,255)
     ball:render()
     
     displayFPS()
