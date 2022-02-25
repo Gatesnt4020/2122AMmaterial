@@ -1,4 +1,4 @@
-import random,time
+import random,time,os
 
 class Connect4:
 
@@ -133,11 +133,11 @@ while game:
         while not winner:
             time.sleep(1)
             if i%2 ==0:
-                currentPlayer = "Player 1"
                 sym = players[0]
+                currentPlayer = sym
             else:
-                currentPlayer = "Player 2"
                 sym = players[1]
+                currentPlayer = sym
             print(f"It is currently {currentPlayer} turn")
             spot = c.playerSpot()
             if not c.play(spot, sym):
@@ -151,17 +151,18 @@ while game:
                 c.printBoard()
                 print("No more moves lets so its a tie")
             i+=1
+            os.system('cls' if os.name=='nt' else 'clear')
             c.printBoard()
     elif gameMode == "pvc":
         while not winner:
             time.sleep(2)
             if i%2 ==0:
-                currentPlayer = "Player 1"
                 sym = players[0]
+                currentPlayer = sym
                 spot = c.playerSpot()
             else:
-                currentPlayer = "Player 2"
                 sym = players[1]
+                currentPlayer = sym
                 spot = random.randint(0,6)
             if not c.play(spot, sym):
                 print(f"colum {spot} is full")
@@ -177,18 +178,19 @@ while game:
                 c.printBoard()
                 print("No more moves lets so its a tie")
             i+=1
+            os.system('cls' if os.name=='nt' else 'clear')
             c.printBoard()
     else:
         print("There might be an issue with the bots skipping but it's fixed in pvp and pvc")
         while not winner:
             time.sleep(2)
             if i%2 ==0:
-                currentPlayer = "Player 1"
                 sym = players[0]
+                currentPlayer = sym
                 spot = random.randint(0,6)
             else:
-                currentPlayer = "Player 2"
                 sym = players[1]
+                currentPlayer = sym
                 spot = random.randint(0,6)
             if not c.play(spot, sym):
                 print(f"colum {spot} is full")
@@ -204,6 +206,7 @@ while game:
                 c.printBoard()
                 print("No more moves lets so its a tie")
             i+=1
+            os.system('cls' if os.name=='nt' else 'clear')
             c.printBoard()
     playAgain = input("Do  you want to play again (y/n) ").lower()
     while playAgain != "y" and playAgain != "n":
