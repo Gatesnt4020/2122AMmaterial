@@ -118,11 +118,11 @@ HOW TO PLAY:
         Players must alternate turns, and only one disc can be dropped in each turn. 
         On your turn, drop one of your colored discs from the top into any of the seven slots. 
         The game ends when there is a 4-in-a-row or a stalemate.
-        The starter of the previous game goes second on the next game.\nhttps://www.gamesver.com/the-rules-of-connect-4-according-to-m-bradley-hasbro/\n""")
+        The starter of the previous game goes second on the next game.\nhttps://www.gamesver.com/the-rules-of-connect-4-according-to-m-bradley-hasbro/\n""")#Print out how to play the board game
 game = True
 while game:
     gameMode = input("what would you like to do PvP, PvC, or CvC ").lower()
-    while gameMode != "pvp" and gameMode != "pvc" and gameMode != "cvc":
+    while gameMode != "pvp" and gameMode != "pvc" and gameMode != "cvc":        #will check
         gameMode = input("what would you like to do PvP, PvC, or CvC ").lower()
     c.makeBoard()
     players = c.playerPiece()
@@ -151,6 +151,7 @@ while game:
                 c.printBoard()
                 print("No more moves lets so its a tie")
             i+=1
+            #https://stackoverflow.com/questions/2084508/clear-terminal-in-python       used to make the terminal cleaner
             os.system('cls' if os.name=='nt' else 'clear')
             c.printBoard()
     elif gameMode == "pvc":
