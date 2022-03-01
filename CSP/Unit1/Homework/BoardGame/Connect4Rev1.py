@@ -120,19 +120,19 @@ HOW TO PLAY:
         The game ends when there is a 4-in-a-row or a stalemate.
         The starter of the previous game goes second on the next game.\nhttps://www.gamesver.com/the-rules-of-connect-4-according-to-m-bradley-hasbro/\n""")#Print out how to play the board game
 game = True
-while game:
+while game:         #This loop is so when the game is over the user can choose whether they want to play again
     gameMode = input("what would you like to do PvP, PvC, or CvC ").lower()
-    while gameMode != "pvp" and gameMode != "pvc" and gameMode != "cvc":        #will check
+    while gameMode != "pvp" and gameMode != "pvc" and gameMode != "cvc":        #will check if the user inputed the correct gamemod 
         gameMode = input("what would you like to do PvP, PvC, or CvC ").lower()
     c.makeBoard()
     players = c.playerPiece()
     i=0
     winner = False
     c.printBoard()
-    if gameMode == "pvp":
-        while not winner:
+    if gameMode == "pvp":           #if the user picks pvp
+        while not winner:            #plays the game while there is no winner or tie
             time.sleep(1)
-            if i%2 ==0:
+            if i%2 ==0:             #checks to see which users turn it is
                 sym = players[0]
                 currentPlayer = sym
             else:
@@ -140,13 +140,13 @@ while game:
                 currentPlayer = sym
             print(f"It is currently {currentPlayer} turn")
             spot = c.playerSpot()
-            if not c.play(spot, sym):
+            if not c.play(spot, sym):           #checks the users input for a spot placement if there is a valid spot
                 print(f"colum {spot} is full")
-            if c.checkForWinner(sym):
+            if c.checkForWinner(sym):           #checks after the move if there is a 4 in a four 
                 winner = True
                 c.printBoard()
                 print(f"Winner is {currentPlayer}")
-            if c.tie():
+            if c.tie():                         #checks if there are any spots left on the board
                 winner = True
                 c.printBoard()
                 print("No more moves lets so its a tie")
@@ -154,10 +154,10 @@ while game:
             #https://stackoverflow.com/questions/2084508/clear-terminal-in-python       used to make the terminal cleaner
             os.system('cls' if os.name=='nt' else 'clear')
             c.printBoard()
-    elif gameMode == "pvc":
-        while not winner:
+    elif gameMode == "pvc":     #if the user picks pvc
+        while not winner:           #plays the game while there is no winner or tie
             time.sleep(2)
-            if i%2 ==0:
+            if i%2 ==0:     #checks to see which user turn it is
                 sym = players[0]
                 currentPlayer = sym
                 spot = c.playerSpot()
@@ -165,27 +165,28 @@ while game:
                 sym = players[1]
                 currentPlayer = sym
                 spot = random.randint(0,6)
-            if not c.play(spot, sym):
+            if not c.play(spot, sym):       #checks the users input for a spot placement if there is a valid spot
                 print(f"colum {spot} is full")
                 while c.play(spot, sym) != True:
                     spot = random.randint(0,6)
                     continue
-            if c.checkForWinner(sym):
+            if c.checkForWinner(sym):               #checks after the move if there is a 4 in a four 
                 winner = True
                 c.printBoard()
                 print(f"Winner is {currentPlayer}")
-            if c.tie():
+            if c.tie():             #checks if there are any spots left on the board
                 winner = True
                 c.printBoard()
                 print("No more moves lets so its a tie")
             i+=1
-            os.system('cls' if os.name=='nt' else 'clear')
-            c.printBoard()
-    else:
+            #https://stackoverflow.com/questions/2084508/clear-terminal-in-python       used to make the terminal cleaner
+            os.system('cls' if os.name=='nt' else 'clear')              #clears the board so it is cleaner
+            c.printBoard()                      #prints the board
+    else:           #if the user picks cvc
         print("There might be an issue with the bots skipping but it's fixed in pvp and pvc")
-        while not winner:
+        while not winner:        #plays the game while there is no winner or tie
             time.sleep(2)
-            if i%2 ==0:
+            if i%2 ==0:     #checks to see which user turn it is
                 sym = players[0]
                 currentPlayer = sym
                 spot = random.randint(0,6)
@@ -193,26 +194,27 @@ while game:
                 sym = players[1]
                 currentPlayer = sym
                 spot = random.randint(0,6)
-            if not c.play(spot, sym):
+            if not c.play(spot, sym):           #checks the users input for a spot placement if there is a valid spot
                 print(f"colum {spot} is full")
-                while c.play(spot, sym) != True:
+                while c.play(spot, sym) != True:           #if the computer put in a bad spot it lets them pick again until its a good move 
                     spot = random.randint(0,6)
                     continue
-            if c.checkForWinner(sym):
+            if c.checkForWinner(sym):                #checks after the move if there is a 4 in a four 
                 winner = True
                 c.printBoard()
                 print(f"Winner is {currentPlayer}")
-            if c.tie():
+            if c.tie():             #checks if there are any spots left on the board
                 winner = True
                 c.printBoard()
                 print("No more moves lets so its a tie")
             i+=1
+            #https://stackoverflow.com/questions/2084508/clear-terminal-in-python       used to make the terminal cleaner
             os.system('cls' if os.name=='nt' else 'clear')
             c.printBoard()
     playAgain = input("Do  you want to play again (y/n) ").lower()
-    while playAgain != "y" and playAgain != "n":
+    while playAgain != "y" and playAgain != "n":            #sees if the user wants to play again
         playAgain = input("Do  you want to play again (y/n) ").lower()
-    if playAgain == "y":
+    if playAgain == "y":                
         c = Connect4()
     else:
         game = False
