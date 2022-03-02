@@ -86,13 +86,42 @@ if ui == "check":
         else:
             with open(puzzle,"r+") as p:
                 puzzleFromFile=p.readlines()
-                puzzle=[]
                 for i in puzzleFromFile:
-                    puzzle.append(i.strip())
+                    puzzleFromFile.append(i.replace("\n",""))
+                    puzzleFromFile.pop(0)
+                for i in puzzleFromFile:
+                    puzzleFromFile.append([])
+                    for j in i:
+                        puzzleFromFile[-1].append(j)
+                    puzzleFromFile.pop(0)
                 p.close
-            print(puzzle)
-            print(puzzleFromFile)
+                print(puzzleFromFile)
+            #checking to see if there is a issue with the horizontal part
+            issue=0
+            for row in puzzleFromFile:
+                nums=[]
+                for i in row:
+                    if i in nums:
+                        print()
+                        os.system.exit("There was a ")
+                    else:
+                        
+                    nums.append(i)
+                issue+=1
     while ui == "enter":
         print("This is still currently being worked on")
 else:
     print("This is still currently being worked on")
+
+"""
+for row in board:
+    for i in range(0,len(row)):
+        if i < len(row)-3:
+            if row[i] == row[i+1] == row[i+2] == row[i+3] == " "+sym:
+                return True
+#check for vertical wins
+for row in range(self.rowsize-3):
+    for i in range(self.colsize):
+        if board[row][i] == board[row+1][i] == board[row+2][i] == board[row+3][i] == " "+sym:
+            return True
+"""
