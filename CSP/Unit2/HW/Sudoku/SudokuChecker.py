@@ -64,6 +64,82 @@ import os,time
     - Seriously, you will want this for later.
     - Take baby steps.  That's why I recommend functions so you can get more points faster and partial credit when you're stuck.
     '''
+    
+#Opens the files to add the content into a list while removing unnecessary elements
+def openFile(puzzle):
+    global puzzleFromFile
+    with open(puzzle,"r+") as p:
+                puzzleFromFile=p.readlines()
+                index=0
+                for i in puzzleFromFile:
+                    puzzleFromFile[index]=i.replace("\n","")
+                    index+=1
+                index=0
+                for i in puzzleFromFile:
+                    puzzleFromFile[index] = []
+                    for j in i:
+                        puzzleFromFile[index].append(j)
+                    index+=1
+                p.close
+
+#checking to see if there is a issue with the horizontal part
+def horizontalChecker():
+    issue=1
+    problems=[]
+    for row in puzzleFromFile:
+        nums=[]
+        for i in row:
+            if i in nums:
+                '''print()
+                print(f"There was a horizontal error in row {issue}")
+                print()'''
+                problems.append(str(issue))
+                #os.system.exit("There was a horizontal error ")    would stop the program
+            else:  
+                nums.append(i)
+        issue+=1
+    return problems
+
+def verticalChecker():
+    issue=9
+    problems=[]
+    for col in range(len(puzzleFromFile)):
+        nums=[]
+        for i in range(len(puzzleFromFile)):
+            if puzzleFromFile[col-i][col] in nums:
+                problems.append(str(col+1))
+            else:  
+                nums.append(puzzleFromFile[col-i][col])
+        issue-=1
+    return problems
+
+def sectionChecker():
+    problems=[]
+    for sec in range((len(puzzleFromFile))):
+        nums = []
+        issue=9
+        for i in range(int(issue/3)):
+            if puzzleFromFile[i-3][sec-3] in nums:
+                problems.append(str(sec))
+            else:  
+                nums.append(puzzleFromFile[i-3][sec-3])
+            issue-=3
+        return problems
+
+
+#used to change the list from the checkers to print out a string in the problem row
+def listToString(problems):
+    if len(problems) > 0: 
+        word=""
+        for i in problems:
+            word+=i
+            if len(word)-1>=0:
+                word+=","
+        word = word[:-1]
+        print(f"The puzzle has {len(problems)} horizontal problem(s) in row(s) {word}")
+        print()
+    
+
 
 ui = input("Would you like to 'solve' or 'check' a Sudoku Puzzle ").lower()
 while ui != "solve" and ui != "check":
@@ -73,7 +149,7 @@ if ui == "check":
     while ui != "enter" and ui != "import":
         ui = input("Would you like to 'enter' your puzzle or 'import' your puzzle ").lower()
     while ui == "import":
-        #https://stackoverflow.com/questions/11968976/list-files-only-in-the-current-directory      used to print the files in the directory for user friendlyness and for bad spelling
+#       https://stackoverflow.com/questions/11968976/list-files-only-in-the-current-directory      used to print the files in the directory for user friendlyness and for bad spelling
         print(os.listdir(os.curdir))
         print("Note please use txt files")
         puzzle = input("Which file would you like to import ")
@@ -84,44 +160,16 @@ if ui == "check":
             time.sleep(1)
             continue
         else:
-            with open(puzzle,"r+") as p:
-                puzzleFromFile=p.readlines()
-                for i in puzzleFromFile:
-                    puzzleFromFile.append(i.replace("\n",""))
-                    puzzleFromFile.pop(0)
-                for i in puzzleFromFile:
-                    puzzleFromFile.append([])
-                    for j in i:
-                        puzzleFromFile[-1].append(j)
-                    puzzleFromFile.pop(0)
-                p.close
-                print(puzzleFromFile)
-            #checking to see if there is a issue with the horizontal part
-            issue=0
-            for row in puzzleFromFile:
-                nums=[]
-                for i in row:
-                    if i in nums:
-                        print()
-                        os.system.exit("There was a ")
-                    else:
-                        
-                    nums.append(i)
-                issue+=1
+            openFile(puzzle)
+            os.system('cls')
+            problems = horizontalChecker()
+            listToString(problems)
+            problems = verticalChecker()
+            listToString(problems)
+            problems = sectionChecker()
+            listToString(problems)
+            time.sleep(5)
     while ui == "enter":
         print("This is still currently being worked on")
 else:
     print("This is still currently being worked on")
-
-"""
-for row in board:
-    for i in range(0,len(row)):
-        if i < len(row)-3:
-            if row[i] == row[i+1] == row[i+2] == row[i+3] == " "+sym:
-                return True
-#check for vertical wins
-for row in range(self.rowsize-3):
-    for i in range(self.colsize):
-        if board[row][i] == board[row+1][i] == board[row+2][i] == board[row+3][i] == " "+sym:
-            return True
-"""
