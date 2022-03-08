@@ -1,69 +1,5 @@
-import os,time
-
-'''
-    Goal of this program is to check and see if the Sudoku puzzle the user enters is correct.
-    This program should be ran in the same directory as a text file called Puzzle.txt
-    The program will check if the Sudoku puzzle is correct then output to the console if it is correct or not.
-    If you've never played Sudoku before, here's the rules:  https://sudoku.com/how-to-play/sudoku-rules-for-complete-beginners/
-    I have listed out a couple ideas to create this program.  You do not need to do this my way, but I'm telling ya, it will help in the long run.
-
-
-    #read in the text file into a 2D List so you can iterate through it like we did in Tic Tac Toe
-    puzzleFromFile=[]
-    #open the file
-    #utilize a for loop to iterate through the file
-        #each line should be converted into a list and appended to the board
-        
-    #utilize a function where you enter a list or row and check if the row has 1-9 exclusively
-    def rowChecker(rowToCheck):
-        #if the board isn't solved horizontally, then return False
-        return True
-
-    #create a function that takes in your 2D List above and checks if each horizontal row has 1-9 exclusively
-    def horizontalCheck(boardToCheck):
-        #loop through the boardToCheck (which should be the puzzleFromFile variable)
-        #   each iteration you will have a list so check to see if that list has 1-9, if it doesn't return False
-        #if the board isn't solved horizontally, then return False
-        return True
-
-    #create a function that takes in your 2D List above and checks if each vertical column has 1-9 exclusively
-    def verticalCheck(boardToCheck):
-        #You should already have a function to check a row if it has 1-9 exclusively.
-        #   Rotate the boardToCheck and pass in the board to horizontalCheck
-        #if the board isn't solved horizontally, then return False
-        return True
-
-    #create a function checks the different sections of board.  You could make the function dynamic by passing in which section to check.
-    def sectionCheck(boardToCheck):
-        #if the board isn't solved horizontally, then return False
-        return True
-
-    #working code
-    if horizontalCheck(puzzleFromFile):
-        print("passed horizontally")
-    elif verticalCheck(puzzleFromFile):
-        print("passed vertically")
-    elif sectionCheck(puzzleFromFile):    
-    
-        need to be able to tell the user which section failed
-        there are 9 sections 
-        1   2   3
-        4   5   6
-        7   8   9
-    
-    failedSection=1
-    print(f"Section {failedSection} Didn't Pass")
-    
-    
-
-    - You can assume the data coming in is like the examples
-    - Need to tell the user where it failed, the more specific the more points (which row, which col, which section)
-        - Some Points: tell the user which method failed first
-        - Average Points: tell which row or column the puzzle failed on
-        - All Points: the exact cell that failed
-    - Seriously, you will want this for later.
-    - Take baby steps.  That's why I recommend functions so you can get more points faster and partial credit when you're stuck.
-    '''
+import os,time,math
+#       i know i forgot to comment,comment,comment -5
     
 #Opens the files to add the content into a list while removing unnecessary elements
 def openFile(puzzle):
@@ -84,51 +20,60 @@ def openFile(puzzle):
 
 #checking to see if there is a issue with the horizontal part
 def horizontalChecker():
-    issue=1
+    rowspot=1
     problems=[]
+    problemType=["horizontal",'row','column']
     for row in puzzleFromFile:
         nums=[]
+        col=1
         for i in row:
             if i in nums:
-                '''print()
-                print(f"There was a horizontal error in row {issue}")
-                print()'''
-                problems.append(str(issue))
+                problems.append(str(col))
+                problems.append(str(rowspot))
                 #os.system.exit("There was a horizontal error ")    would stop the program
             else:  
                 nums.append(i)
-        issue+=1
-    return problems
+            col+=1
+        rowspot+=1
+    return problems,problemType
 
 def verticalChecker():
-    issue=9
     problems=[]
+    problemType=["vertical",'column','row']
     for col in range(len(puzzleFromFile)):
         nums=[]
         for i in range(len(puzzleFromFile)):
-            if puzzleFromFile[col-i][col] in nums:
+            if puzzleFromFile[i][col] in nums:
+                problems.append(str(i+1))
                 problems.append(str(col+1))
             else:  
-                nums.append(puzzleFromFile[col-i][col])
-        issue-=1
-    return problems
+                nums.append(puzzleFromFile[i][col])
+    return problems,problemType
 
 def sectionChecker():
     problems=[]
-    for sec in range((len(puzzleFromFile))):
+    problemType=["section",'row','column']
+    cols=0
+    rows=0
+    for sec in range(len(puzzleFromFile)):
         nums = []
-        issue=9
-        for i in range(int(issue/3)):
-            if puzzleFromFile[i-3][sec-3] in nums:
-                problems.append(str(sec))
-            else:  
-                nums.append(puzzleFromFile[i-3][sec-3])
-            issue-=3
-        return problems
+        for i in range(math.floor(len(puzzleFromFile)/3)): 
+            for j in range(math.floor(len(puzzleFromFile)/3)):
+                if puzzleFromFile[i+cols][j+rows] in nums:
+                    problems.append(str(sec+1))
+                    problems.append(str(j+rows+1))
+                    problems.append(str(i+cols+1))
+                else:
+                    nums.append(puzzleFromFile[i+cols][j+rows])
+        rows+=3
+        if (sec+1)%3==0:
+            cols+=3
+            rows=0
+    return problems,problemType
 
 
 #used to change the list from the checkers to print out a string in the problem row
-def listToString(problems):
+def listToString(problems,problemType):
     if len(problems) > 0: 
         word=""
         for i in problems:
@@ -136,7 +81,19 @@ def listToString(problems):
             if len(word)-1>=0:
                 word+=","
         word = word[:-1]
-        print(f"The puzzle has {len(problems)} horizontal problem(s) in row(s) {word}")
+        
+        if problemType[0]!="section":
+            problem=str(len(problems)/2)
+            print(f"The puzzle has {problem[0]} {problemType[0]} problem(s) in {problemType[1]}/{problemType[2]} {word}")
+            print(f"First number is the {problemType[1]} and second is the {problemType[2]}")
+            print()
+        else: 
+            problem=str(len(problems)/3)
+            print(f"The puzzle has {problem[0]} {problemType[0]} problem(s) in {problemType[0]}/{problemType[1]}/{problemType[2]} {word}")
+            print(f"First number is the {problemType[0]}, second is the {problemType[1]}, and the third  is the {problemType[2]}")
+            print()
+    else:
+        print(f"The puzzle's {problemType[0]} has no problems")
         print()
     
 
@@ -162,14 +119,15 @@ if ui == "check":
         else:
             openFile(puzzle)
             os.system('cls')
-            problems = horizontalChecker()
-            listToString(problems)
-            problems = verticalChecker()
-            listToString(problems)
-            problems = sectionChecker()
-            listToString(problems)
+            problems,problemType = horizontalChecker()
+            listToString(problems,problemType)
+            problems,problemType = verticalChecker()
+            listToString(problems,problemType)
+            problems,problemType = sectionChecker()
+            listToString(problems,problemType)
             time.sleep(5)
     while ui == "enter":
         print("This is still currently being worked on")
+        break
 else:
     print("This is still currently being worked on")
