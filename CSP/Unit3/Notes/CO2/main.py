@@ -4,13 +4,15 @@ with open("temperature_data.csv","r") as f:
     for i in file:
         file[index]=i.rstrip()
         index+=1
-print(file)
 
 anomaly=[]
 for row in file:
     row = row.split(",")        #cleaned data
-    anomaly.append(float(row[1]))      #getting the anomaly and adding the anomalies to the list
-print(row)
+    try:
+        anomaly.append(float(row[1]))      #getting the anomaly and adding the anomalies to the list
+    except:
+        print(row[1])
+        pass    #pass is a keyword taht just passes
 
 minValue=min(anomaly)
 maxValue=max(anomaly)
