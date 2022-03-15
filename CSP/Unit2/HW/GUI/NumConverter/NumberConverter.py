@@ -1,4 +1,11 @@
 from tkinter import *
+
+root = Tk()
+root.geometry("312x324")
+root.title("Number Converter")
+
+options=["Binary","Decimal","Oct","Hex","Other"]
+
 def dec2bin(decimal):
     # 1 byte = 8 bits = 256 unique integers = hightest value is 255
     decimal = int(input("give me a positive whole number:"))
@@ -55,5 +62,9 @@ def dec2hex(decimal):
     for b in digitList:
         out+=b
     print(out)
-    
-dec2hex(int(input()))
+
+ui = input("hex or dec ")
+if ui == "hex":
+    dec2hex(int(input()))
+else:
+    dec2bin(int(input()))
