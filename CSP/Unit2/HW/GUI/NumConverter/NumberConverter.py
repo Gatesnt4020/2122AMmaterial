@@ -8,7 +8,6 @@ options=["Binary","Decimal","Oct","Hex","Other"]
 
 def dec2bin(decimal):
     # 1 byte = 8 bits = 256 unique integers = hightest value is 255
-    decimal = int(input("give me a positive whole number:"))
 
 
     #1st find the amount of bits
@@ -38,7 +37,6 @@ def dec2bin(decimal):
 def dec2hex(decimal):
     values="0123456789ABCDEF"
     # 1 byte = 8 bits = 256 unique integers = hightest value is 255
-    decimal = int(input("give me a positive whole number:"))
 
 
     #1st find the amount of bits
@@ -46,7 +44,7 @@ def dec2hex(decimal):
     digitList=[]
     exp=0
     while decimal>=16**exp:      #to change base 2 into a different one change the 2 into another number
-        digitList.insert(0,2**exp)  #insert instead of add to the end
+        digitList.insert(0,16**exp)  #insert instead of add to the end
         exp+=1
 
     #2nd we iterated through the digitList to find how many of each bit is in our number
