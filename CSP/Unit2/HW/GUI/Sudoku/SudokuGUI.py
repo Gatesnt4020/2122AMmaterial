@@ -16,7 +16,7 @@ Bonus opportunity:  Add to the GUI the ability for the user to create a puzzle o
 If you solve using random number generation, will work, but more strategy the better.  You will need to output the finished puzzle to user."""
 
 from tkinter import *
-import SudokuChecker as Checker
+#import SudokuChecker as Checker
 import os,time,random
 
 root = Tk()
