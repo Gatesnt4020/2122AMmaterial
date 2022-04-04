@@ -4,7 +4,7 @@ import os,time,math
 class Checker:
     #Opens the files to add the content into a list while removing unnecessary elements
     
-
+    @staticmethod
     def openFile(self,puzzle):
         with open(puzzle,"r+") as p:
             puzzleFromFile=p.readlines()
