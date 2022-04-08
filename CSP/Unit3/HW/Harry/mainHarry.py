@@ -69,7 +69,7 @@ pageCount=[]
 #       and graph this in a graph
 for i in range(len(bookList)):
     pageCount.append(pageNumber(bookList[i]))
-#makeGraphs(pageCount)
+makeGraphs(pageCount)
 
 def charNumbers(FILENAME):
     with open(f"out/{FILENAME}","r",encoding="utf-8") as f:
@@ -87,7 +87,7 @@ def charNumbers(FILENAME):
 chrCount=[]
 for i in range(len(bookList)):
     chrCount.append(charNumbers(bookList[i]))
-makeGraphs(chrCount)
+#makeGraphs(chrCount)
 
 
 def wordNumbers(FILENAME):
@@ -106,6 +106,7 @@ def wordNumbers(FILENAME):
 wordCount=[]
 for i in range(len(bookList)):
     wordCount.append(wordNumbers(bookList[i]))
+print(wordCount)
 #makeGraphs(wordCount)
 
 harry = ['Harry Potter','Harry']
