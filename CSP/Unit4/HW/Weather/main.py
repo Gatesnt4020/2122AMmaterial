@@ -32,27 +32,26 @@ def txt_to_csv(FILENAME):
             file.write(line)
         file.close()
 
-def cleanUp(FILENAME,removable):
+def cleanUp(FILENAME,removable,TRUE):
     df = pd.read_csv(FILENAME,header=0)
     try:
         removable=int(removable)
-        temp=removable
+        temp=removable                                                                      
         for i in range(removable):
-            ui=input("which header would you like to remove ")
+            print(df.head())
+            ui=["STATION","STATION_NAME"]
             try:
-                del df[ui]
+                del df[ui[i]]
             except:
                 print("you typed the header wrong try again")
                 removable+=1
                 break
     except:
         print("please enter a number")
-        cleanUp("new EVV Weather Obs.csv",input("how many headers do you want to remove "))
+        cleanUp("new EVV Weather Obs.csv",3)
     if temp == removable:
         df.to_csv('out.csv',index=False)
-        df['DATE']=df['DATE'].str.replace(".0","")
-        
 
-txt_to_csv('EVV Weather Obs.txt')
+txt_to_csv('data/EVV Weather Obs.txt')
 
-cleanUp("new EVV Weather Obs.csv",input("how many headers do you want to remove "))
+cleanUp("new EVV Weather Obs.csv",3)
