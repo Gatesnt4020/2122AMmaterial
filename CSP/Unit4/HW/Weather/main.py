@@ -31,8 +31,9 @@ def txt_to_csv(FILENAME):
         for line in f:
             file.write(line)
         file.close()
+        
 
-def cleanUp(FILENAME,removable,TRUE):
+def cleanUp(FILENAME,removable):
     df = pd.read_csv(FILENAME,header=0)
     try:
         removable=int(removable)
@@ -48,10 +49,10 @@ def cleanUp(FILENAME,removable,TRUE):
                 break
     except:
         print("please enter a number")
-        cleanUp("new EVV Weather Obs.csv",3)
+        cleanUp("new EVV Weather Obs.csv",2)
     if temp == removable:
         df.to_csv('out.csv',index=False)
 
 txt_to_csv('data/EVV Weather Obs.txt')
 
-cleanUp("new EVV Weather Obs.csv",3)
+cleanUp("new EVV Weather Obs.csv",2)
