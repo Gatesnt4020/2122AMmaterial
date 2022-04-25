@@ -14,33 +14,55 @@ userGraphic.pack(side=TOP)
 buttonGraphic.pack(side=BOTTOM)
 
 #making the top part of the atm separating it into 3 different parts
-'''leftBTN = Frame(userGraphic)
+leftBTN = Frame(userGraphic)
 middleLBL = Frame(userGraphic)
 rightBTN = Frame(userGraphic)
 leftBTN.pack(side=LEFT)
 middleLBL.pack()
-rightBTN.pack(side=RIGHT)'''
+rightBTN.pack(side=RIGHT)
 
 #making the bottom part of the atm separating it into 2 different parts
-'''numPad = Frame(buttonGraphic)
+numPad = Frame(buttonGraphic)
 commandBTN = Frame(buttonGraphic)
 numPad.pack(side=LEFT)
-commandBTN.pack(side=RIGHT)'''
+commandBTN.pack(side=RIGHT)
 
+#top part of the atm frame
 leftBTNs=[]
 for i in range(4):
-    btn = Button(userGraphic,text=f"B{i+1}")
+    btn = Button(leftBTN,text=f"B{i+1}")
     btn.grid(row=i)
     leftBTNs.append(btn)
 
-LBL = LabelFrame(userGraphic,text="",width=500,height=500,bd=0,highlightbackground="black",highlightcolor="black",highlightthickness=1)
+LBL = LabelFrame(middleLBL,text="",width=500,height=500,bd=0,highlightbackground="black",highlightcolor="black",highlightthickness=1)
 LBL.grid(column=1)
 
 
 rightBTNs=[]
 for i in range(4):
-    btn = Button(userGraphic,text=f"B{i+5}")
+    btn = Button(rightBTN,text=f"B{i+5}")
     btn.grid(row=i,column=2)
     rightBTNs.append(btn)
+
+#bottom part of the atm frame
+numBTNs=[]
+for i in range(4):
+    for j in range(3):
+        btn = Button(numPad)
+        btn.grid(row=i,column=j)
+        numBTNs.append(btn)
+listy=["7","8","9","4","5","6","1","2","3","","0",""]
+for i in range(len(numBTNs)):
+    numBTNs[i]['text'] = listy[i]
+
+clearBTN = Button(commandBTN,text='Clear',background='yellow')
+cancelBTN = Button(commandBTN,text='Cancel',background='red')
+enterBTN = Button(commandBTN,text='Enter',background='green')
+fillerBTN = Button(commandBTN)
+clearBTN.grid(row=0)
+cancelBTN.grid(row=1)
+enterBTN.grid(row=2)
+fillerBTN.grid(row=3)
+
 
 root.mainloop()
