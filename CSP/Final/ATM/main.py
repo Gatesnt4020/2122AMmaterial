@@ -2,7 +2,7 @@ from tkinter import *
 from tkinter.tix import COLUMN
 
 root = Tk()
-root.geometry("960x960")
+root.geometry("720x720")
 root.title("ATM")
     
 root.bind("<Escape>", lambda x: root.destroy())
