@@ -1,0 +1,1 @@
+print("Wheel Of Fortune *Crowd Claps*")
