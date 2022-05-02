@@ -24,6 +24,9 @@ helpLBL= Label(ipFrame,text="IP information for all network adapters in use by W
 helpLBL.grid(row=1,column=1)
 backBTN = Button(ipFrame,text='Back',command=back)
 backBTN.grid(row=0,column=0)
+ipBTN = Button(ipFrame,text="IPconfig")
+ipBTN.grid(row=2,column=1)
+ipLBL = Label(ipFrame)
 
 #The traceFrame screen
 traceFrame = Frame(root)
@@ -44,7 +47,7 @@ backBTN.grid(row=0,column=0)
 #The nsFrame screen
 nsFrame = Frame(root)
 nsFrame.grid(row=0,column=0,sticky='news')
-helpLBL= Label(nsFrame,text="enter a host name (for example, 'whatis.com') and find out the corresponding IP address or \ndomain name system (DNS) record",padx=5,pady=5)
+helpLBL= Label(nsFrame,text="Enter a host name (for example, 'whatis.com') and find out the corresponding IP address or \ndomain name system (DNS) record",padx=5,pady=5)
 helpLBL.grid(row=1,column=1)
 backBTN = Button(nsFrame,text='Back',command=back)
 backBTN.grid(row=0,column=0)
