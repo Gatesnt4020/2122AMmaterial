@@ -7,6 +7,10 @@ import tkinter.scrolledtext as tksc
 from tkinter import filedialog
 from tkinter.filedialog import asksaveasfilename
 
+root = tk.Tk()
+frame = tk.Frame(root)
+frame.pack()
+
 def do_command():
     subprocess.call("ping localhost")
     
@@ -25,9 +29,6 @@ def do_command(command):
     command_textbox.insert(tk.END, cmd_results)
     command_textbox.insert(tk.END, cmd_errors)
 
-root = tk.Tk()
-frame = tk.Frame(root)
-frame.pack()
 
 # set up button to run the do_command function
 ping_btn = tk.Button(frame, text="ping", command=do_command)
