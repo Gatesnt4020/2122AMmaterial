@@ -1,0 +1,7 @@
+Server:  evsc-dc1.evsc.local
+Address:  10.10.10.10
+
+Name:    facebook.com
+Addresses:  2a03:2880:f127:283:face:b00c:0:25de
+	  157.240.18.35
+
